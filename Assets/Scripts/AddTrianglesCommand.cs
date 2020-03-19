@@ -6,9 +6,9 @@ public class AddTrianglesCommand : Command
 {
     private GameObject _impactedObject;
 
-    public AddTrianglesCommand(Application application)
+    public AddTrianglesCommand()
     {
-        _impactedObject = application.ChosenObject();
+        _impactedObject = Application.ChosenObject;
     }
 
     public override void Execute ()
@@ -18,6 +18,6 @@ public class AddTrianglesCommand : Command
 
     public override void Undo()
     {
-        
+        _impactedObject.GetComponent<MeshWireframe>().SubtractTriangleToDraw();
     }
 }
