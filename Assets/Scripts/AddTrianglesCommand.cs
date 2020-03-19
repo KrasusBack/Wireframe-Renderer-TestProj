@@ -4,7 +4,19 @@ using UnityEngine;
 
 public class AddTrianglesCommand : Command
 {
+    private GameObject _impactedObject;
+
+    public AddTrianglesCommand(Application application)
+    {
+        _impactedObject = application.ChosenObject();
+    }
+
     public override void Execute ()
+    {
+        _impactedObject.GetComponent<MeshWireframe>().AddTriangleToDraw();
+    }
+
+    public override void Undo()
     {
         
     }

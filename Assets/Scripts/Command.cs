@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Command
 {
-    private protected Object _influencedObj;
 
     public abstract void Execute();
+    public abstract void Undo();
 }
