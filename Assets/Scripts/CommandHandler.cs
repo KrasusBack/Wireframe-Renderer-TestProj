@@ -4,28 +4,26 @@ using UnityEngine;
 
 public class CommandHandler
 {
-    CommandHistory _commandHistory = new CommandHistory();
-
-    public List<Command> HistoryRecords => _commandHistory.HistoryRecords;
+    public CommandHistory History { get; } = new CommandHistory();
 
     public void ExecuteCommand(Command command)
     {
-        _commandHistory.AddNewCommand(command);
+        History.AddNewCommand(command);
         command.Execute();
     }
 
     public void UndoLastCommand()
     {
-        var lastCommand = _commandHistory.LastCommand;
+        var lastCommand = History.LastCommand;
         if (lastCommand == null) return;
 
-        _commandHistory.DeleteLastCommand();
+        History.DeleteLastCommand();
         lastCommand.Undo();
     }
 
     public void RepeatLastCommand()
     {
-        var lastCommand = _commandHistory.LastCommand;
+        var lastCommand = History.LastCommand;
         if (lastCommand == null) return;
 
         ExecuteCommand(lastCommand);

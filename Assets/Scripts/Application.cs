@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Application : MonoBehaviour
 {
@@ -10,25 +11,29 @@ public class Application : MonoBehaviour
     [SerializeField]
     private ApplicationSettings applicationSettings;
     [SerializeField]
-    private GameObject historyTextBox;
+    private GameObject textObject;
 
     private CommandHandler _commandHandler = new CommandHandler();
-    private Text _historyText;
+    private Text _historyRecordsText = null;
 
     public static Application Instance { get; private set; } = null;
     public static ApplicationSettings Settings => Instance.applicationSettings;
     public static GameObject ChosenObject => Instance.chosenObject;
+    public static CommandHandler CommandHandler => Instance._commandHandler;
+
+    public delegate void CommandsHistoryChangedHandler();
+    public event CommandsHistoryChangedHandler CommandsHistoryChanged;
 
     private void SetInstance()
     {
         if (Instance != null)
             throw new System.Exception("There must be only 1 Application instance in the scene");
 
-        _historyText = historyTextBox.GetComponent<Text>();
+        _historyRecordsText = textObject.GetComponent<Text>();
         Instance = this;
     }
 
-    private void Start()
+    private void Awake()
     {
         SetInstance();
     }
@@ -37,37 +42,27 @@ public class Application : MonoBehaviour
     {
         if (Input.GetKeyDown(Settings.AddTrianglesKey))
         {
-            _commandHandler.ExecuteCommand(new AddTrianglesCommand());
-            UpdateHistoryTextbox();
+            _commandHandler.ExecuteCommand(new AddTrianglesCommand(ChosenObject));
+            HistoryUpdatedNotification();
             return;
         }
         if (Input.GetKeyDown(Settings.UndoKey))
         {
             _commandHandler.UndoLastCommand();
-            UpdateHistoryTextbox();
+            HistoryUpdatedNotification();
             return;
         }
         if (Input.GetKeyDown(Settings.RedoKey))
         {
             _commandHandler.RepeatLastCommand();
-            UpdateHistoryTextbox();
+            HistoryUpdatedNotification();
             return;
         }
     }
 
-    #region Text Handler
-        private void UpdateHistoryTextbox()
-        {
-            if (_historyText == null) return;
+    private void HistoryUpdatedNotification()
+    {
+        CommandsHistoryChanged();
+    }
 
-            string newHistory = string.Empty;
-            var history = _commandHandler.HistoryRecords;
-
-            for(var i = 0; i<history.Count; ++i)
-            {
-                newHistory += (i+1) + ") " + " " + history[i].GetType().ToString() + "\n";
-            }
-            _historyText.text = newHistory;
-        }
-    #endregion
 }

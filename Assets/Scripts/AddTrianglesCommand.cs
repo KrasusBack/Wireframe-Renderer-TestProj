@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AddTrianglesCommand : Command
 {
-    private GameObject _impactedObject;
+    private readonly GameObject _impactedObject;
+    private readonly int _creationTime = 0;
 
-    public AddTrianglesCommand()
+    public AddTrianglesCommand(GameObject impactedObject)
     {
-        _impactedObject = Application.ChosenObject;
+        _impactedObject = impactedObject;
+        _creationTime = Time.frameCount;
     }
 
     public override void Execute ()
@@ -19,5 +22,10 @@ public class AddTrianglesCommand : Command
     public override void Undo()
     {
         _impactedObject.GetComponent<MeshWireframe>().SubtractTriangleToDraw();
+    }
+
+    public override string ToString()
+    {
+        return "Add Triangles (" + Convert.ToString(_creationTime, 16) + ")";
     }
 }
