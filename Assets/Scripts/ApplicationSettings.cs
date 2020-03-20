@@ -10,6 +10,8 @@ public class ApplicationSettings : ScriptableObject
     private KeyCode redoKey = KeyCode.X;
     [SerializeField]
     private KeyCode undoKey = KeyCode.Z;
+    [SerializeField]
+    private int historyCapacity = 100;
 
     [Header("Adding polygons")]
     [SerializeField]
@@ -29,5 +31,6 @@ public class ApplicationSettings : ScriptableObject
     public KeyCode UndoKey => undoKey;
     public KeyCode DemoKey => demoKey;
     public float DemoModeDrawCooldown => demoModeDrawCooldown;
+    public int HistoryCapacity => historyCapacity;
 
 }

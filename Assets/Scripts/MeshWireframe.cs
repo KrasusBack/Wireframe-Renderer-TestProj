@@ -21,13 +21,8 @@ public class MeshWireframe : MonoBehaviour
 
     private void SetUpStartState()
     {
-        //if (startFromWhole)
-        //    _currentTrianglesLeft = _mesh.triangles.Length;
-        //else
-        //{
-            _currentTrianglesLeft = 3;
-            _mesh.triangles = new int[] { _mesh.triangles[0], _mesh.triangles[1], _mesh.triangles[2] };
-        //}
+        _currentTrianglesLeft = 3;
+        _mesh.triangles = new int[] { _mesh.triangles[0], _mesh.triangles[1], _mesh.triangles[2] };
     }
 
     private void UpdateMesh(int triangleNumberChange)
