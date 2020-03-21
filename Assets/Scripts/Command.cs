@@ -4,8 +4,12 @@ using UnityEngine;
 
 public abstract class Command
 {
-    public abstract void Execute();
-    public abstract void Undo();
+    /// <summary>Execute command. Returns operation success status..</summary>
+    public abstract bool Execute();
+    /// <summary>Undo command. Returns operation success status.</summary>
+    public abstract bool Undo();
 
+    //Must return in app name of command
+    /// <summary>Undo command. Returns operation success status.</summary>
     public abstract override string ToString();
 }

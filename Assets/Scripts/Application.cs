@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class Application : MonoBehaviour
+public sealed class Application : MonoBehaviour
 {
     [SerializeField]
     private GameObject chosenObject;
@@ -42,20 +42,20 @@ public class Application : MonoBehaviour
     {
         if (Input.GetKeyDown(Settings.AddTrianglesKey))
         {
-            _commandHandler.ExecuteCommand(new AddTrianglesCommand(ChosenObject));
-            HistoryUpdatedNotification();
+            if (_commandHandler.ExecuteCommand(new AddTrianglesCommand(ChosenObject)))
+                HistoryUpdatedNotification();
             return;
         }
         if (Input.GetKeyDown(Settings.UndoKey))
         {
-            _commandHandler.UndoLastCommand();
-            HistoryUpdatedNotification();
+            if (_commandHandler.UndoLastCommand())
+                HistoryUpdatedNotification();
             return;
         }
         if (Input.GetKeyDown(Settings.RedoKey))
         {
-            _commandHandler.RepeatLastCommand();
-            HistoryUpdatedNotification();
+            if (_commandHandler.RepeatLastCommand())
+                HistoryUpdatedNotification();
             return;
         }
     }

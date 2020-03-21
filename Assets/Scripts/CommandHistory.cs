@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CommandHistory
+public sealed class CommandHistory
 {
     public List<Command> Records { get; } = new List<Command>();
 
+    /// <summary>Returns last command from command history. Returns null if there is none.</summary>
     public Command LastCommand
     {
         get
@@ -24,7 +25,7 @@ public class CommandHistory
 
     public void AddNewCommand(Command newCommand)
     {
-        //check if history list length in limits of HistoryCapacity
+        //Checks if history list length in limits of HistoryCapacity
         if (Records.Count + 1 > Application.Settings.HistoryCapacity)
             DeleteFirstCommand();
 
