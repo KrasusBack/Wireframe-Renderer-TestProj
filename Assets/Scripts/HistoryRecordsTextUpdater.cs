@@ -8,11 +8,11 @@ public class HistoryRecordsTextUpdater : MonoBehaviour
     [SerializeField]
     private string noRecordsMessage = "[No history records]";
 
-    private Text _textComponent;
+    private TMPro.TextMeshProUGUI _textComponent;
 
     void Start()
     {
-        _textComponent = GetComponent<Text>();
+        _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
         Application.Instance.CommandsHistoryChanged += UpdateHistoryScrollRect;
     }
 

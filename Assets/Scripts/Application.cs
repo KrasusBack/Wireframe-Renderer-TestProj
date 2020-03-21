@@ -10,11 +10,8 @@ public sealed class Application : MonoBehaviour
     private GameObject chosenObject;
     [SerializeField]
     private ApplicationSettings applicationSettings;
-    [SerializeField]
-    private GameObject textObject;
 
     private CommandHandler _commandHandler = new CommandHandler();
-    private Text _historyRecordsText = null;
 
     public static Application Instance { get; private set; } = null;
     public static ApplicationSettings Settings => Instance.applicationSettings;
@@ -29,7 +26,6 @@ public sealed class Application : MonoBehaviour
         if (Instance != null)
             throw new System.Exception("There must be only 1 Application instance in the scene");
 
-        _historyRecordsText = textObject.GetComponent<Text>();
         Instance = this;
     }
 
