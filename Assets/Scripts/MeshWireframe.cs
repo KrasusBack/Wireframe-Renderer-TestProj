@@ -4,8 +4,6 @@ using UnityEngine;
 
 public sealed class MeshWireframe : MonoBehaviour
 {
-    private int TriangleNumberChange => Application.Settings.TriangleNumberChange;
-
     private Mesh _mesh;
     private int[] _originalTriangles;
     private int _currentTrianglesLeft;
@@ -28,32 +26,32 @@ public sealed class MeshWireframe : MonoBehaviour
     private bool UpdateMesh(int triangleNumberChange)
     {
         if (triangleNumberChange == 0) return false;
-        if (triangleNumberChange > 0 && _currentTrianglesLeft + triangleNumberChange > _originalTriangles.Length)
+        if (triangleNumberChange > 0 && _currentTrianglesLeft + triangleNumberChange * 3 > _originalTriangles.Length)
         {
             print("too much triangles to add");
             return false;
         }
-        if (triangleNumberChange < 0 && _currentTrianglesLeft + triangleNumberChange < 3)
+        if (triangleNumberChange < 0 && _currentTrianglesLeft + triangleNumberChange * 3 < 3)
         {
             print("not enough triangles left to subtract");
             return false;
         }
 
-        _currentTrianglesLeft += triangleNumberChange;
+        _currentTrianglesLeft += triangleNumberChange * 3;
         int[] subTriangles = new int[_currentTrianglesLeft];
         System.Array.Copy(_originalTriangles, 0, subTriangles, 0, _currentTrianglesLeft);
-        
+
         _mesh.triangles = subTriangles;
         return true;
     }
 
-    public bool AddTriangleToDraw()
+    public bool AddTriangleToDraw(int trianglesToAdd)
     {
-        return UpdateMesh(TriangleNumberChange);
+        return UpdateMesh(trianglesToAdd);
     }
 
-    public bool SubtractTriangleToDraw()
+    public bool SubtractTriangleToDraw(int trianglesToAdd)
     {
-        return UpdateMesh(-TriangleNumberChange);
+        return UpdateMesh(-trianglesToAdd);
     }
 }
