@@ -32,6 +32,7 @@ public class HistoryRecordsTextUpdater : MonoBehaviour
                 newHistory += (i + 1) + ") " + history[i].ToString() + "\n";
             }
         }
+        newHistory += "\n";
 
         _textComponent.text = newHistory;
     }

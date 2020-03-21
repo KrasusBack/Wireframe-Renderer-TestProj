@@ -24,7 +24,7 @@ public sealed class Application : MonoBehaviour
     private void SetInstance()
     {
         if (Instance != null)
-            throw new System.Exception("There must be only 1 Application instance in the scene");
+            throw new Exception("There must be only 1 Application instance in the scene");
 
         Instance = this;
     }

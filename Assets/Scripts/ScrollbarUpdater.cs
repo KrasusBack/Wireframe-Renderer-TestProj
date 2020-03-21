@@ -15,7 +15,7 @@ public class ScrollbarUpdater : MonoBehaviour
 
     private void ScrollBarPositionUpdate()
     {
-        _scrollrect.normalizedPosition = new Vector2(0, 0);
+        _scrollrect.verticalNormalizedPosition = 0;
     }
 
 }
