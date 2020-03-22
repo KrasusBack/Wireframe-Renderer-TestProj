@@ -10,6 +10,7 @@ public sealed class HistoryRecordsTextUpdater : MonoBehaviour
     void Start()
     {
         _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
+        _textComponent.text = noRecordsMessage;
         Application.Instance.CommandHistoryChanged += UpdateHistoryScrollRect;
     }
 
