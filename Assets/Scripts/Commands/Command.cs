@@ -1,5 +1,4 @@
-﻿
-public abstract class Command
+﻿public abstract class Command
 {
     protected string errorMessage = string.Empty;
 
