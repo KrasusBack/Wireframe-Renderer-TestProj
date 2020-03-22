@@ -45,6 +45,15 @@ public sealed class Application : MonoBehaviour
             NotifyAboutApplicationMessageChanged();
             return;
         }
+        if (Input.GetKeyDown(Settings.RemoveTrianglesKey))
+        {
+            if (_commandHandler.ExecuteCommand(new RemoveTrianglesCommand(ChosenObject)))
+            {
+                NotifyAboutCommandHistoryUpdate();
+            }
+            NotifyAboutApplicationMessageChanged();
+            return;
+        }
         if (Input.GetKeyDown(Settings.UndoKey))
         {
             if (_commandHandler.UndoLastCommand())

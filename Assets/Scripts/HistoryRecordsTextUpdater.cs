@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public sealed class HistoryRecordsTextUpdater : MonoBehaviour
 {
     [SerializeField]
     private string noRecordsMessage = "[No history records]";
 
-    private TMPro.TextMeshProUGUI _textComponent;
+    private TextMeshProUGUI _textComponent;
 
     void Start()
     {
-        _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
+        _textComponent = GetComponent<TextMeshProUGUI>();
         _textComponent.text = noRecordsMessage;
         Application.Instance.CommandHistoryChanged += UpdateHistoryScrollRect;
     }

@@ -48,7 +48,6 @@ public sealed class CommandHistory
     public string[] ToArrayOfStrings()
     {
         string[] history = new string[_records.Count];
-
         if (_records.Count == 0) return history;
 
         for (var i = 0; i < _records.Count; ++i)

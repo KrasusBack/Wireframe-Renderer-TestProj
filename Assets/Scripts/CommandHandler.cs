@@ -1,5 +1,4 @@
 ﻿
-
 public sealed class CommandHandler
 {
     public CommandHistory History { get; } = new CommandHistory();

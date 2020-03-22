@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
 public class ApplicationMessagesUpdater : MonoBehaviour
 {
     [SerializeField]
     private string noMessagesMessage = string.Empty;
 
-    private TMPro.TextMeshProUGUI _textComponent;
+    private TextMeshProUGUI _textComponent;
 
     void Start()
     {
-        _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
+        _textComponent = GetComponent<TextMeshProUGUI>();
         _textComponent.text = noMessagesMessage;
         Application.Instance.ApplicationMessageChanged += UpdateMessagesBox;
     }

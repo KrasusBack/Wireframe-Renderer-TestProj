@@ -2,7 +2,8 @@
 public abstract class Command
 {
     protected string errorMessage = string.Empty;
-    public string ErrorMessage { get { return errorMessage; } }
+
+    public string ErrorMessage => errorMessage;
     /// <summary>Execute command. Returns operation success status.</summary>
     public abstract bool Execute();
     /// <summary>Undo command. Returns operation success status.</summary>

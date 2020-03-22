@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "ApplicationSettings", menuName = "ScriptableObjects/ApplicationSettings", order = 1)]
-
 public class ApplicationSettings : ScriptableObject
 {
     [Header("General")]
@@ -17,12 +16,8 @@ public class ApplicationSettings : ScriptableObject
     private int triangleNumberChange = 1;
     [SerializeField]
     private KeyCode addTrianglesKey = KeyCode.C;
-
-    [Header("DemoMode")]
     [SerializeField]
-    private KeyCode demoModeKey = KeyCode.Space;
-    [SerializeField, Range(0.001f, 60)]
-    private float demoModeDrawCooldown = 0.05f;
+    private KeyCode removeTrianglesKey = KeyCode.D;
 
 
     public KeyCode RedoKey => redoKey;
@@ -31,7 +26,5 @@ public class ApplicationSettings : ScriptableObject
 
     public int TriangleNumberChange => triangleNumberChange;
     public KeyCode AddTrianglesKey => addTrianglesKey;
-    
-    public KeyCode DemoModeKey => demoModeKey;
-    public float DemoModeDrawCooldown => demoModeDrawCooldown;
+    public KeyCode RemoveTrianglesKey => removeTrianglesKey;
 }
