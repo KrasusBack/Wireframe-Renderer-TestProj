@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class HistoryRecordsTextUpdater : MonoBehaviour
+public sealed class HistoryRecordsTextUpdater : MonoBehaviour
 {
     [SerializeField]
     private string noRecordsMessage = "[No history records]";
@@ -13,25 +10,24 @@ public class HistoryRecordsTextUpdater : MonoBehaviour
     void Start()
     {
         _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
-        Application.Instance.CommandsHistoryChanged += UpdateHistoryScrollRect;
+        Application.Instance.CommandHistoryChanged += UpdateHistoryScrollRect;
     }
 
     private void UpdateHistoryScrollRect()
     {
         string newHistory = string.Empty;
-        var history = Application.CommandHandler.History.Records;
+        var history = Application.CommandHandler.History.ToArrayOfStrings();
 
-        if (history.Count == 0)
+        if (history.Length == 0)
         {
             newHistory = noRecordsMessage;
+            return;
         }
-        else
+
+        foreach (var historyString in history)
         {
-            for (var i = 0; i < history.Count; ++i)
-            {
-                newHistory += (i + 1) + ") " + history[i].ToString() + "\n";
-            }
-        }
+            newHistory += historyString + "\n";
+        } 
         newHistory += "\n";
 
         _textComponent.text = newHistory;

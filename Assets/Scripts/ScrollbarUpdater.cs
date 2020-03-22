@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ScrollbarUpdater : MonoBehaviour
+public sealed class ScrollbarUpdater : MonoBehaviour
 {
     private ScrollRect _scrollrect;
 
     void Start()
     {
         _scrollrect = GetComponent<ScrollRect>();
-        Application.Instance.CommandsHistoryChanged += ScrollBarPositionUpdate;
+        Application.Instance.CommandHistoryChanged += ScrollBarPositionUpdate;
     }
 
     private void ScrollBarPositionUpdate()

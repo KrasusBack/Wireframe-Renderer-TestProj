@@ -1,40 +1,57 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public sealed class CommandHistory
 {
-    public List<Command> Records { get; } = new List<Command>();
+    private List<Command> _records = new List<Command>();
 
     /// <summary>Returns last command from command history. Returns null if there is none.</summary>
     public Command LastCommand
     {
         get
         {
-            if (Records.Count < 1) return null;
-            return Records[Records.Count - 1];
+            if (_records.Count == 0) return null;
+            return _records[_records.Count - 1];
         }
-    }
-
-    public void DeleteLastCommand()
-    {
-        var lastCommandIndex = Records.Count - 1;
-        if (lastCommandIndex < 0) return;
-        Records.RemoveAt(lastCommandIndex);
     }
 
     public void AddNewCommand(Command newCommand)
     {
         //Checks if history list length in limits of HistoryCapacity
-        if (Records.Count + 1 > Application.Settings.HistoryCapacity)
+        if (_records.Count + 1 > Application.Settings.HistoryCapacity)
             DeleteFirstCommand();
 
-        Records.Add(newCommand);
+        _records.Add(newCommand);
+    }
+
+    public void DeleteLastCommand()
+    {
+        var lastCommandIndex = _records.Count - 1;
+        if (lastCommandIndex < 0) return;
+        _records.RemoveAt(lastCommandIndex);
     }
 
     private void DeleteFirstCommand()
     {
-        Records.RemoveAt(0);
+        _records.RemoveAt(0);
     }
 
+    public void ClearHistory()
+    {
+        _records.Clear();
+    }
+
+    /// <summary>Returns array of command history records in "{index}) {commandType}.ToString()"  </summary>
+    public string[] ToArrayOfStrings()
+    {
+        string[] history = new string[_records.Count];
+
+        if (_records.Count == 0) return history;
+
+        for (var i = 0; i < _records.Count; ++i)
+        {
+            history[i] = (i + 1) + ") " + _records[i].ToString();
+        }
+
+        return history;
+    }
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using System;
 
 public sealed class Application : MonoBehaviour
@@ -11,15 +8,15 @@ public sealed class Application : MonoBehaviour
     [SerializeField]
     private ApplicationSettings applicationSettings;
 
-    private CommandHandler _commandHandler = new CommandHandler();
-
     public static Application Instance { get; private set; } = null;
     public static ApplicationSettings Settings => Instance.applicationSettings;
     public static GameObject ChosenObject => Instance.chosenObject;
     public static CommandHandler CommandHandler => Instance._commandHandler;
 
-    public delegate void CommandsHistoryChangedHandler();
-    public event CommandsHistoryChangedHandler CommandsHistoryChanged;
+    public delegate void CommandHistoryChangedHandler();
+    public event CommandHistoryChangedHandler CommandHistoryChanged;
+
+    private CommandHandler _commandHandler = new CommandHandler();
 
     private void SetInstance()
     {
@@ -29,7 +26,7 @@ public sealed class Application : MonoBehaviour
         Instance = this;
     }
 
-    private void Awake()
+    private void Start()
     {
         SetInstance();
     }
@@ -39,26 +36,26 @@ public sealed class Application : MonoBehaviour
         if (Input.GetKeyDown(Settings.AddTrianglesKey))
         {
             if (_commandHandler.ExecuteCommand(new AddTrianglesCommand(ChosenObject)))
-                HistoryUpdatedNotification();
+                NotifyAboutCommandHistoryUpdate();
             return;
         }
         if (Input.GetKeyDown(Settings.UndoKey))
         {
             if (_commandHandler.UndoLastCommand())
-                HistoryUpdatedNotification();
+                NotifyAboutCommandHistoryUpdate();
             return;
         }
         if (Input.GetKeyDown(Settings.RedoKey))
         {
             if (_commandHandler.RepeatLastCommand())
-                HistoryUpdatedNotification();
+                NotifyAboutCommandHistoryUpdate();
             return;
         }
     }
 
-    private void HistoryUpdatedNotification()
+    private void NotifyAboutCommandHistoryUpdate()
     {
-        CommandsHistoryChanged();
+        CommandHistoryChanged();
     }
 
 }

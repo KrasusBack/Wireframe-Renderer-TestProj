@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
 
 public sealed class AddTrianglesCommand : Command
 {
     private readonly GameObject _impactedObject;
+    /// <summary>Сreation frame.</summary>
     private readonly int _creationTime = 0;
     private readonly int _trianglesToAdd = 0;
 
@@ -16,18 +14,18 @@ public sealed class AddTrianglesCommand : Command
         _trianglesToAdd = Application.Settings.TriangleNumberChange;
     }
 
-    public override bool Execute ()
+    public override bool Execute()
     {
-        return _impactedObject.GetComponent<MeshWireframe>().AddTriangleToDraw(_trianglesToAdd);
+        return _impactedObject.GetComponent<MeshWireframe>().IncreaseNumberOfTriangles(_trianglesToAdd);
     }
 
     public override bool Undo()
     {
-        return _impactedObject.GetComponent<MeshWireframe>().SubtractTriangleToDraw(_trianglesToAdd);
+        return _impactedObject.GetComponent<MeshWireframe>().DecreaseNumberOfTriangles(_trianglesToAdd);
     }
 
     public override string ToString()
     {
-        return "Add Triangles:"+_trianglesToAdd+" (" + Convert.ToString(_creationTime, 16) + ")";
+        return "Add Triangles:" + _trianglesToAdd + " (" + System.Convert.ToString(_creationTime, 16) + ")";
     }
 }

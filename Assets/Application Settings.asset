@@ -15,7 +15,7 @@ MonoBehaviour:
   redoKey: 120
   undoKey: 122
   historyCapacity: 100
-  triangleNumberChange: 1
+  triangleNumberChange: 22
   addTrianglesKey: 99
   demoModeKey: 32
   demoModeDrawCooldown: 0.05
