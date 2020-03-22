@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ApplicationMessagesUpdater : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private string noMessagesMessage = string.Empty;
+
+    private TMPro.TextMeshProUGUI _textComponent;
+
     void Start()
     {
-        
+        _textComponent = GetComponent<TMPro.TextMeshProUGUI>();
+        _textComponent.text = noMessagesMessage;
+        Application.Instance.ApplicationMessageChanged += UpdateMessagesBox;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateMessagesBox()
     {
-        
+        _textComponent.text = Application.CommandHandler.ErrorMessage;      
     }
 }

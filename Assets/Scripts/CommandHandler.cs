@@ -3,11 +3,18 @@
 public sealed class CommandHandler
 {
     public CommandHistory History { get; } = new CommandHistory();
+    public string ErrorMessage { get; private set; } = string.Empty;
 
     /// <summary>Executes given command and puts it in CommandHistory. Returns operation success status.</summary>
     public bool ExecuteCommand(Command command)
     {
-        if (!command.Execute()) return false;
+        if (!command.Execute())
+        {
+            ErrorMessage = command.ErrorMessage;
+            return false;
+        }
+
+        ErrorMessage = string.Empty;
         History.AddNewCommand(command);
         return true;
     }
@@ -17,8 +24,13 @@ public sealed class CommandHandler
     {
         var lastCommand = History.LastCommand;
         if (lastCommand == null) return false;
-        if (!lastCommand.Undo()) return false;
+        if (!lastCommand.Undo())
+        {
+            ErrorMessage = lastCommand.ErrorMessage;
+            return false;
+        }
 
+        ErrorMessage = string.Empty;
         History.DeleteLastCommand();
         return true;
     }

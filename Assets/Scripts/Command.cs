@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public abstract class Command
 {
+    protected string errorMessage = string.Empty;
+    public string ErrorMessage { get { return errorMessage; } }
     /// <summary>Execute command. Returns operation success status.</summary>
     public abstract bool Execute();
     /// <summary>Undo command. Returns operation success status.</summary>

@@ -16,12 +16,17 @@ public sealed class AddTrianglesCommand : Command
 
     public override bool Execute()
     {
-        return _impactedObject.GetComponent<MeshWireframe>().IncreaseNumberOfTriangles(_trianglesToAdd);
+        errorMessage = _impactedObject.GetComponent<MeshWireframe>().IncreaseNumberOfTriangles(_trianglesToAdd);
+        if (errorMessage == string.Empty)
+            return true;
+        return false;
     }
 
     public override bool Undo()
     {
-        return _impactedObject.GetComponent<MeshWireframe>().DecreaseNumberOfTriangles(_trianglesToAdd);
+        errorMessage = _impactedObject.GetComponent<MeshWireframe>().DecreaseNumberOfTriangles(_trianglesToAdd);
+        if (errorMessage == string.Empty) return true;
+        return false;
     }
 
     public override string ToString()

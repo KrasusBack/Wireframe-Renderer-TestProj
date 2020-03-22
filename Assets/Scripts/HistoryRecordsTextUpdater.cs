@@ -22,14 +22,15 @@ public sealed class HistoryRecordsTextUpdater : MonoBehaviour
         if (history.Length == 0)
         {
             newHistory = noRecordsMessage;
-            return;
         }
-
-        foreach (var historyString in history)
+        else
         {
-            newHistory += historyString + "\n";
-        } 
-        newHistory += "\n";
+            foreach (var historyString in history)
+            {
+                newHistory += historyString + "\n";
+            }
+            newHistory += "\n";
+        }  
 
         _textComponent.text = newHistory;
     }

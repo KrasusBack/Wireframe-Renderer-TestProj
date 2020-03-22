@@ -26,7 +26,11 @@ public sealed class CommandHistory
     public void DeleteLastCommand()
     {
         var lastCommandIndex = _records.Count - 1;
-        if (lastCommandIndex < 0) return;
+        UnityEngine.MonoBehaviour.print(lastCommandIndex + " " + _records.Count);
+        if (lastCommandIndex < 0)
+        { 
+            return;
+        }
         _records.RemoveAt(lastCommandIndex);
     }
 

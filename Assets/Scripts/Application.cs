@@ -16,6 +16,9 @@ public sealed class Application : MonoBehaviour
     public delegate void CommandHistoryChangedHandler();
     public event CommandHistoryChangedHandler CommandHistoryChanged;
 
+    public delegate void ApplicationMessageHandler();
+    public event ApplicationMessageHandler ApplicationMessageChanged;
+
     private CommandHandler _commandHandler = new CommandHandler();
 
     private void SetInstance()
@@ -36,19 +39,28 @@ public sealed class Application : MonoBehaviour
         if (Input.GetKeyDown(Settings.AddTrianglesKey))
         {
             if (_commandHandler.ExecuteCommand(new AddTrianglesCommand(ChosenObject)))
+            {
                 NotifyAboutCommandHistoryUpdate();
+            }
+            NotifyAboutApplicationMessageChanged();
             return;
         }
         if (Input.GetKeyDown(Settings.UndoKey))
         {
             if (_commandHandler.UndoLastCommand())
+            {
                 NotifyAboutCommandHistoryUpdate();
+            }
+            NotifyAboutApplicationMessageChanged();
             return;
         }
         if (Input.GetKeyDown(Settings.RedoKey))
         {
             if (_commandHandler.RepeatLastCommand())
+            {
                 NotifyAboutCommandHistoryUpdate();
+            }
+            NotifyAboutApplicationMessageChanged();
             return;
         }
     }
@@ -56,6 +68,11 @@ public sealed class Application : MonoBehaviour
     private void NotifyAboutCommandHistoryUpdate()
     {
         CommandHistoryChanged();
+    }
+
+    private void NotifyAboutApplicationMessageChanged ()
+    {
+        ApplicationMessageChanged();
     }
 
 }

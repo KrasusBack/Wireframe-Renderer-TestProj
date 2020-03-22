@@ -15,12 +15,14 @@ public sealed class MeshWireframe : MonoBehaviour
         SetUpStartState();
     }
 
-    public bool IncreaseNumberOfTriangles(int trianglesToAdd)
+    /// <summary>Returns error message or string.Empty if there is none.</summary>
+    public string IncreaseNumberOfTriangles(int trianglesToAdd)
     {
         return UpdateMesh(trianglesToAdd);
     }
 
-    public bool DecreaseNumberOfTriangles(int trianglesToAdd)
+    /// <summary>Returns error message or string.Empty if there is none.</summary>
+    public string DecreaseNumberOfTriangles(int trianglesToAdd)
     {
         return UpdateMesh(-trianglesToAdd);
     }
@@ -31,18 +33,19 @@ public sealed class MeshWireframe : MonoBehaviour
         _mesh.triangles = new int[] { _mesh.triangles[0], _mesh.triangles[1], _mesh.triangles[2] };
     }
 
-    private bool UpdateMesh(int triangleNumberChange)
+    /// <summary>Returns error message or string.Empty if there is none.</summary>
+    private string UpdateMesh(int triangleNumberChange)
     {
-        if (triangleNumberChange == 0) return false;
-        if (triangleNumberChange > 0 && _currentTrianglesLeft + triangleNumberChange * 3 > _originalTriangles.Length)
+        var newTrianglesAmount = _currentTrianglesLeft + triangleNumberChange * 3;
+        if (triangleNumberChange > 0 && newTrianglesAmount > _originalTriangles.Length)
         {
-            print("Too much triangles to add");
-            return false;
+            if (triangleNumberChange == 1)
+                return Time.frameCount + "Cannot add more triangles - all of them in place already";
+            return Time.frameCount + " Not enough space left to add " +  triangleNumberChange + " triangles";
         }
-        if (triangleNumberChange < 0 && _currentTrianglesLeft + triangleNumberChange * 3 < 3)
+        if (triangleNumberChange < 0 && newTrianglesAmount < 3)
         {
-            print("Not enough triangles left to subtract");
-            return false;
+            return Time.frameCount + "Not enough triangles left to subtract. At least 1 should stay";
         }
 
         _currentTrianglesLeft += triangleNumberChange * 3;
@@ -50,6 +53,6 @@ public sealed class MeshWireframe : MonoBehaviour
         System.Array.Copy(_originalTriangles, 0, subTriangles, 0, _currentTrianglesLeft);
 
         _mesh.triangles = subTriangles;
-        return true;
+        return string.Empty;
     } 
 }

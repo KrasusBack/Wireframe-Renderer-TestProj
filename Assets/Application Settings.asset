@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redoKey: 120
   undoKey: 122
-  historyCapacity: 100
+  historyCapacity: 15
   triangleNumberChange: 1
   addTrianglesKey: 99
   demoModeKey: 32
