@@ -44,7 +44,7 @@ public sealed class MeshWireframe : MonoBehaviour
         }
         if (triangleNumberChange < 0 && newTrianglesAmount < 3)
         {
-            return FormErrorMessage("Not enough triangles left to subtract. At least 1 should stay");
+            return FormErrorMessage("Not enough triangles left to remove. At least 1 should stay");
         }
 
         _currentTrianglesLeft += triangleNumberChange * 3;
@@ -57,6 +57,6 @@ public sealed class MeshWireframe : MonoBehaviour
 
     private string FormErrorMessage(string message)
     {
-        return System.Convert.ToString(Time.frameCount, 16) + " " + message;
+        return message + " (" + System.Convert.ToString(Time.frameCount, 16) + ")";
     }
 }
