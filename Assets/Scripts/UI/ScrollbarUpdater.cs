@@ -13,6 +13,7 @@ public sealed class ScrollbarUpdater : MonoBehaviour
 
     private void ScrollBarPositionUpdate()
     {
+        Canvas.ForceUpdateCanvases();
         _scrollrect.verticalNormalizedPosition = 0;
     }
 

@@ -30,7 +30,6 @@ public sealed class HistoryRecordsTextUpdater : MonoBehaviour
             {
                 newHistory += historyString + "\n";
             }
-            newHistory += "\n";
         }  
 
         _textComponent.text = newHistory;

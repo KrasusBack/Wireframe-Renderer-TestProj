@@ -18,5 +18,3 @@ MonoBehaviour:
   triangleNumberChange: 1
   addTrianglesKey: 99
   removeTrianglesKey: 100
-  demoModeKey: 32
-  demoModeDrawCooldown: 0.05
