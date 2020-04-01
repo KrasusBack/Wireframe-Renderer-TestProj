@@ -8,7 +8,7 @@ public sealed class ScrollbarUpdater : MonoBehaviour
     void Start()
     {
         _scrollrect = GetComponent<ScrollRect>();
-        Application.Instance.CommandHistoryChanged += ScrollBarPositionUpdate;
+        ApplicationCore.Instance.CommandHistoryChanged += ScrollBarPositionUpdate;
     }
 
     private void ScrollBarPositionUpdate()

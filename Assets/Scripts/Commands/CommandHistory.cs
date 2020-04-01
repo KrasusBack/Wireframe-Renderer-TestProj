@@ -17,7 +17,7 @@ public sealed class CommandHistory
     public void AddNewCommand(Command newCommand)
     {
         //Checks if history list length in limits of HistoryCapacity
-        if (_records.Count + 1 > Application.Settings.HistoryCapacity)
+        if (_records.Count + 1 > ApplicationCore.Settings.HistoryCapacity)
             DeleteFirstCommand();
 
         _records.Add(newCommand);

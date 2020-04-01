@@ -12,11 +12,11 @@ public class ApplicationMessagesUpdater : MonoBehaviour
     {
         _textComponent = GetComponent<TextMeshProUGUI>();
         _textComponent.text = noMessagesMessage;
-        Application.Instance.ApplicationMessageChanged += UpdateMessagesBox;
+        ApplicationCore.Instance.ApplicationMessageChanged += UpdateMessagesBox;
     }
 
     private void UpdateMessagesBox()
     {
-        _textComponent.text = Application.CommandHandler.ErrorMessage;      
+        _textComponent.text = ApplicationCore.CommandHandler.ErrorMessage;      
     }
 }

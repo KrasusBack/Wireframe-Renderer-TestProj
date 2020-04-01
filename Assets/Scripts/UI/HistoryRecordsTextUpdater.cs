@@ -12,13 +12,13 @@ public sealed class HistoryRecordsTextUpdater : MonoBehaviour
     {
         _textComponent = GetComponent<TextMeshProUGUI>();
         _textComponent.text = noRecordsMessage;
-        Application.Instance.CommandHistoryChanged += UpdateHistoryScrollRect;
+        ApplicationCore.Instance.CommandHistoryChanged += UpdateHistoryScrollRect;
     }
 
     private void UpdateHistoryScrollRect()
     {
         string newHistory = string.Empty;
-        var history = Application.CommandHandler.History.ToArrayOfStrings();
+        var history = ApplicationCore.CommandHandler.History.ToArrayOfStrings();
 
         if (history.Length == 0)
         {

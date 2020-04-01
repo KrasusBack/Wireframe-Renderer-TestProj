@@ -11,7 +11,7 @@ public class RemoveTrianglesCommand : Command
     {
         _impactedObject = impactedObject;
         _creationTime = Time.frameCount;
-        _trianglesToAdd = Application.Settings.TriangleNumberChange;
+        _trianglesToAdd = ApplicationCore.Settings.TriangleNumberChange;
     }
 
     public override bool Execute()
